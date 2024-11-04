@@ -1,6 +1,7 @@
 from threading import Thread
 from time import sleep
 import subprocess
+import os
 
 import rclpy
 from rclpy.node import Node
@@ -45,10 +46,10 @@ class SystemNode(Node):
 
         #sleep(1)
 
-        Thread(target=lambda: subprocess.Popen(["sleep","5;", "sudo","shutdown","now"], stdout=subprocess.PIPE).communicate()).start()
+        os.system('(sleep 5; sudo shutdown now) &')
 
         response.success = True
-        response.message = 'restarting in 5 seconds'
+        response.message = 'shutting down in 5 seconds'
  
         return response
 
