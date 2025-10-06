@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'avr_vmc_system'
+package_name = 'avr_system'
 
 setup(
         name=package_name,
@@ -14,12 +14,12 @@ setup(
         zip_safe=True,
         maintainer='Hunter Baker',
         maintainer_email='hunterbaker@me.com',
-        description='A node to control general system functions (instead of using DBus)',
+        description='A node to control general system functions',
         license='LGPL-3.0-only',
         tests_require=['pytest'],
         entry_points={
             'console_scripts': [
-                'system_control_node = avr_vmc_system.system:main',
+                'system_control_node = avr_system.system_node:main',
             ],
         },
 )
