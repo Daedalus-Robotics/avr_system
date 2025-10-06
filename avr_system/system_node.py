@@ -50,7 +50,7 @@ class SystemNode(Node):
             request: SystemTrigger.Request,
             response: SystemTrigger.Response
     ) -> SystemTrigger.Response:
-        if request.include_submodule and self.subsystem_enabled:
+        if request.include_subsystem and self.subsystem_enabled:
             self.sub_shutdown_client.call_async(SystemTrigger())
 
         success = os.system('(sleep 5; sudo shutdown now) &') == 0
@@ -65,7 +65,7 @@ class SystemNode(Node):
             request: SystemTrigger.Request,
             response: SystemTrigger.Response
     ) -> SystemTrigger.Response:
-        if request.include_submodule and self.subsystem_enabled:
+        if request.include_subsystem and self.subsystem_enabled:
             self.sub_restart_launch_client.call_async(SystemTrigger())
 
         proc = subprocess.Popen(['sudo', 'systemctl', 'restart', self.service_name], stdout=subprocess.PIPE)
