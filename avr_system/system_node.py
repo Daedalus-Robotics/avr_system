@@ -45,6 +45,8 @@ class SystemNode(Node):
                 'subsystem/restart'
             )
 
+        self.get_logger().info('Ready')
+
     def shutdown(
             self,
             request: SystemTrigger.Request,
@@ -57,7 +59,7 @@ class SystemNode(Node):
 
         response.success = success
         response.message = 'shutting down in 5 seconds' if success else 'failed to shutdown'
- 
+
         return response
 
     def restart_launch(
@@ -76,7 +78,7 @@ class SystemNode(Node):
             proc.communicate()
 
         response.success = proc.returncode == 0
- 
+
         return response
 
     @staticmethod
@@ -92,15 +94,18 @@ class SystemNode(Node):
             proc.communicate()
 
         response.success = proc.returncode == 0
- 
+
         return response
 
 
 def main() -> None:
     rclpy.init()
-    node = SystemNode()
-    executor = rclpy.executors.MultiThreadedExecutor()
-    rclpy.spin(node, executor)
+    try:
+        node = SystemNode()
+        executor = rclpy.executors.MultiThreadedExecutor()
+        rclpy.spin(node, executor)
+    except KeyboardInterrupt:
+        pass
 
 
 if __name__ == '__main__':
